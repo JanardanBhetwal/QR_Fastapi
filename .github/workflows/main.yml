@@ -1,0 +1,29 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      backend:
+        image: backend:latest
+        ports:
+          - 8000:8000
+        env:
+          ENV_FILE: ./backend/.env
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run smoke test
+        run: |
+          sleep 5
+          curl -f http://localhost:8000/api/v1/utils/qr?data=Test -o /dev/null
+          echo 'Smoke test passed'
