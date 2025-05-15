@@ -1,159 +1,90 @@
-# QR_Fastapi
+# QR FastAPI
+
+## Overview
+
+QR FastAPI is a lightweight and efficient application for generating QR codes. Built with Python and FastAPI, it provides a simple API interface for QR code operations, making it easy to integrate into other applications or use as a standalone service.
 
 ## Features
 
-- **FastAPI** with Python 3.8
-- **React 16** with Typescript, Redux, and react-router
-- Postgres
-- SqlAlchemy with Alembic for migrations
-- Pytest for backend tests
-- Jest for frontend tests
-- Perttier/Eslint (with Airbnb style guide)
-- Docker compose for easier development
-- Nginx as a reverse proxy to allow backend and frontend on the same port
+- Generate QR codes with custom text or URLs.
+- Fast and scalable API using FastAPI.
 
-## Development
+---
 
-The only dependencies for this project should be docker and docker-compose.
+## How to Run
 
-### Quick Start
+### Prerequisites
 
-Starting the project with hot-reloading enabled
-(the first time it will take a while):
+- Python 3.8 or higher
+- Docker (optional, for containerized deployment)
 
-```bash
-docker-compose up -d
-```
+### Running Locally
 
-To run the alembic migrations (for the users table):
+1. Clone the repository:
 
-```bash
-docker-compose run --rm backend alembic upgrade head
-```
+   ```bash
+   git clone https://github.com/JanardanBhetwal/QR_Fastapi.git
+   cd QR_Fastapi
+   ```
 
-And navigate to http://localhost:8000
+2. Install dependencies:
 
-_Note: If you see an Nginx error at first with a `502: Bad Gateway` page, you may have to wait for webpack to build the development server (the nginx container builds much more quickly)._
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   cd backend
+   pip install -r requirements.txt
+   ```
 
-Auto-generated docs will be at
-http://localhost:8000/api/docs
+3. Start the FastAPI server:
+   ```bash
+   uvicorn app.main:app --reload --port 8000
+   ```
 
-### Rebuilding containers:
+---
 
-```
-docker-compose build
-```
+### Running with Docker
 
-### Restarting containers:
+1. Build the Docker image:
 
-```
-docker-compose restart
-```
+   ```bash
+   docker build -t qr-fastapi .
+   ```
 
-### Bringing containers down:
+2. Run the container:
+   ```bash
+   docker run -p 8000:8000 qr-fastapi
+   ```
 
-```
-docker-compose down
-```
+---
 
-### Frontend Development
+Then open http://127.0.0.1:8000/api/v1/utils/qr?data=https://github.com/JanardanBhetwal/ in your browser.
 
-Alternatively to running inside docker, it can sometimes be easier
-to use npm directly for quicker reloading. To run using npm:
+## Configuration and Setup Notes
 
-```
-cd frontend
-npm install
-npm start
-```
+- **Environment Variables**:
+  You can configure the application using the following environment variables:
 
-This should redirect you to http://localhost:3000
+  - `HOST`: The host address (default: `127.0.0.1`).
+  - `PORT`: The port number (default: `8000`).
 
-### Frontend Tests
+- **Dependencies**:
+  Ensure all dependencies listed in `requirements.txt` are installed if running locally.
 
-```
-cd frontend
-npm install
-npm test
-```
+- **Testing**:
+  Run the test suite using:
+  ```bash
+  pytest
+  ```
 
-## Migrations
+---
 
-Migrations are run using alembic. To run all migrations:
+## License
 
-```
-docker-compose run --rm backend alembic upgrade head
-```
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-To create a new migration:
+## Contributions
 
-```
-alembic revision -m "create users table"
-```
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-And fill in `upgrade` and `downgrade` methods. For more information see
-[Alembic's official documentation](https://alembic.sqlalchemy.org/en/latest/tutorial.html#create-a-migration-script).
-
-## Testing
-
-There is a helper script for both frontend and backend tests:
-
-```
-./scripts/test.sh
-```
-
-### Backend Tests
-
-```
-docker-compose run backend pytest
-```
-
-any arguments to pytest can also be passed after this command
-
-### Frontend Tests
-
-```
-docker-compose run frontend test
-```
-
-This is the same as running npm test from within the frontend directory
-
-## Logging
-
-```
-docker-compose logs
-```
-
-Or for a specific service:
-
-```
-docker-compose logs -f name_of_service # frontend|backend|db
-```
-
-## Project Layout
-
-```
-backend
-└── app
-    ├── alembic
-    │   └── versions # where migrations are located
-    ├── api
-    │   └── api_v1
-    │       └── endpoints
-    ├── core    # config
-    ├── db      # db models
-    ├── tests   # pytest
-    └── main.py # entrypoint to backend
-
-frontend
-└── public
-└── src
-    ├── components
-    │   └── Home.tsx
-    ├── config
-    │   └── index.tsx   # constants
-    ├── __tests__
-    │   └── test_home.tsx
-    ├── index.tsx   # entrypoint
-    └── App.tsx     # handles routing
-```
+---
