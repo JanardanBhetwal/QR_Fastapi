@@ -43,7 +43,7 @@ QR FastAPI is a lightweight and efficient application for generating QR codes. B
 
 ---
 
-### Running with Docker
+<!-- ### Running with Docker
 
 1. Build the Docker image:
 
@@ -56,9 +56,35 @@ QR FastAPI is a lightweight and efficient application for generating QR codes. B
    docker run -p 8000:8000 qr-fastapi
    ```
 
----
+--- -->
 
 Then open http://127.0.0.1:8000/api/v1/utils/qr?data=https://github.com/JanardanBhetwal/ in your browser.
+
+## Usage
+
+The QR FastAPI application allows you to generate QR codes by passing any value to the `data` query parameter in the API endpoint. For example:
+
+```bash
+http://127.0.0.1:8000/api/v1/utils/qr?data=YourCustomValue
+```
+
+Replace `YourCustomValue` with any text, URL, or data you want to encode into a QR code. The API will return the QR code image that you can use or download.
+
+### Example
+
+To generate a QR code for a URL:
+
+```bash
+http://127.0.0.1:8000/api/v1/utils/qr?data=https://example.com
+```
+
+To generate a QR code for custom text:
+
+```bash
+http://127.0.0.1:8000/api/v1/utils/qr?data=HelloWorld
+```
+
+You can use this feature to create QR codes for links, messages, or any other data you need.
 
 ## Configuration and Setup Notes
 
