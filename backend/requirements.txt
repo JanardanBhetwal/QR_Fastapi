@@ -5,7 +5,7 @@ attrs==25.3.0
 bcrypt==3.2.0
 billiard==3.6.4.0
 binaryornot==0.4.4
-celery==5.0.1
+celery==5.2.1
 certifi==2025.4.26
 cffi==1.17.1
 cfgv==3.4.0
